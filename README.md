@@ -52,7 +52,7 @@ The output of the command will give you details of the individual tasks being pe
 
 <img src="https://c1.staticflickr.com/5/4436/37099840420_8ed4889edb_b.jpg" width="656" height="156" alt="Ansible events in Datadog">
 
-This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was
+This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was successfully deployed.
 
 ## Final thoughts
 I hope you found the information and example useful. Please do not hesitate to reach out with comments or suggestions.
