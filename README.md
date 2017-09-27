@@ -49,7 +49,7 @@ cd playbooks
 ansible-playbook dd_agent.yml
 ```
 The output of the command will give you details of the individual tasks being performed. It will also generate two events in your Datadog events stream, one indicating the a playbook run was started and one for its completion. Any errors will also be displayed if they occur during the run of the playbook.
-<img src="https://cl.ly/1J0e3d3T2P2I" width="656" height="156" alt="Ansible events in Datadog">
+<img src="https://c1.staticflickr.com/5/4436/37099840420_8ed4889edb_b.jpg" width="656" height="156" alt="Ansible events in Datadog">
 
 ## References
 Datadog - https://www.datadoghq.com/
