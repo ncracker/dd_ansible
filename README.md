@@ -24,7 +24,7 @@ source setenv
 ```
 echo "ec2-14-223-54-111.us-east-1.compute.amazonaws.com" >> ./hosts
 ```
-3. Replace the example Datadog api key in `./playbooks/nginx.yml'` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api.
+3. Replace the example Datadog api key in `./playbooks/dd_agent.yml`, `./playbooks/nginx.yml` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api.
 
 4. You're now ready to execute your first ansible command, but do make sure you've loaded you ssh-key so you can access the remote node (`ssh-add`)
 ```

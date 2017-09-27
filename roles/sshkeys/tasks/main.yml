@@ -1,8 +1,0 @@
----
-- name: Copy authorized_keys file
-  copy:
-    src: authorized_keys
-    dest: /home/ubuntu/.ssh/authorized_keys
-    owner: ubuntu
-    group: ubuntu
-    mode: 0600
