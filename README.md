@@ -1,6 +1,6 @@
 # Datadog + Ansible
 
-### History of Everything
+### Brief History of Everything
 
 The systems administrator’s role has been evolving rapidly in the last decade and with it the number of tools that we use has also grown exponentially.  Trying to stay on top of it has ushered the era of configuration management, the latest iteration of which is Ansible.
 
@@ -24,9 +24,9 @@ source setenv
 ```
 echo "ec2-14-223-54-111.us-east-1.compute.amazonaws.com" >> ./hosts
 ```
-3. Replace the example Datadog api key in `./playbooks/dd_agent.yml`, `./playbooks/nginx.yml` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api.
+3. Replace the example Datadog api key in `./playbooks/dd_agent.yml` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api.
 
-4. You're now ready to execute your first ansible command, but do make sure you've loaded you ssh-key so you can access the remote node (`ssh-add`)
+4. You're now ready to execute your first Ansible command, but do make sure you've loaded you ssh-key so you can access the remote node (`ssh-add`)
 ```
 ansible -m ping -i hosts all
 ```
@@ -37,6 +37,15 @@ ec2-14-223-54-111.us-east-1.compute.amazonaws.com | SUCCESS => {
     "ping": "pong"
 }
 ```
+This indicated that you were able to successfully run Ansible against the your node.
+
+5. The only thing left to do is run an actual Ansible playbook, which it turn will call the Datadog role and install the dd-agent on your node(s)
+```
+cd playbooks
+ansible-playbook dd_agent.yml
+```
+The output of the command will give you details of the individual tasks being performed. It will also generate two events in your Datadog events stream, one indicating the a playbook run was started and one for its completion. Any errors will also be displayed if they occur during the run of the playbook.
+<img src="https://cl.ly/1J0e3d3T2P2I" width="656" height="156" alt="Ansible events in Datadog"></a>
 
 ## References
 The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/Datadog`)
