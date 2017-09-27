@@ -49,10 +49,19 @@ cd playbooks
 ansible-playbook dd_agent.yml
 ```
 The output of the command will give you details of the individual tasks being performed. It will also generate two events in your Datadog events stream, one indicating the a playbook run was started and one for its completion. Any errors will also be displayed if they occur during the run of the playbook.
+
 <img src="https://c1.staticflickr.com/5/4436/37099840420_8ed4889edb_b.jpg" width="656" height="156" alt="Ansible events in Datadog">
 
+This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was
+
+## Final thoughts
+I hope you found the information and example useful. Please do not hesitate to reach out with comments or suggestions.
+Package dependencies can also be installed with `pip install -r requirements.txt`.
+
 ## References
+For more information on both Datadog and Ansible please refer to the sources below
 Datadog - https://www.datadoghq.com/
+Monitor your automation, automate your monitoring - https://www.datadoghq.com/blog/ansible-datadog-monitor-your-automation-automate-your-monitoring/
 The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/Datadog`)
 Datadog's Ansible callback repo - https://github.com/DataDog/ansible-datadog-callback (included here in `./playbooks/callback_plugins`)
 Ansible's official documentation page - http://docs.ansible.com/ansible/latest/index.html
