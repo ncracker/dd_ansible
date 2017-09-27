@@ -18,13 +18,15 @@ Once you have done that you can clone this example repo with `git clone git@gith
 
 Our intended use case is deploying Datadog agents with Ansible, as well as posting to our Datadog events stream the results of Ansible playbook runs. This would not only deploy the Datadog agents for us, but also allow us to see successes and failures of any playbook runs. To do this, we also want to install the datadog python library with `pip install datadog` and pyyaml with `pip install pyyaml`.
 
+The current example 
+
 ## Getting Started
 1. First we source our setenv file, which will tell Ansible where our host file lives (the file that contains the nodes we want to manage `./hosts`) as well as our ansible configuration file (`./etc/ansible.cfg`)
 ```
 cd dd_ansible
 source setenv
 ```
-2. We also want to tell Ansible what the FQDNs or IPs of the nodes we want to manage are. Add that with echo or your favorite editor, e.g.
+2. We also want to tell Ansible what the FQDNs or IPs of the nodes we want to manage are. It our example we use an Ubuntu 14 ec2 instance as a node. Add that with echo or your favorite editor, e.g.
 ```
 echo "ec2-14-223-54-111.us-east-1.compute.amazonaws.com" >> ./hosts
 ```
@@ -55,6 +57,8 @@ The output of the command will give you details of the individual tasks being pe
 This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was successfully deployed.
 
 ## Final thoughts
+Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.12.3-1` for apt-based platforms, use a `5.12.3-1` format on yum-based platforms). See The Official Datadog Ansible role in the references below for more information.
+
 I hope you found the information and example useful. Please do not hesitate to reach out with comments or suggestions.
 Package dependencies can also be installed with `pip install -r requirements.txt`.
 
