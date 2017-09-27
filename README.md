@@ -18,8 +18,6 @@ Once you have done that you can clone this example repo with `git clone git@gith
 
 Our intended use case is deploying Datadog agents with Ansible, as well as posting to our Datadog events stream the results of Ansible playbook runs. This would not only deploy the Datadog agents for us, but also allow us to see successes and failures of any playbook runs. To do this, we also want to install the datadog python library with `pip install datadog` and pyyaml with `pip install pyyaml`.
 
-The current example 
-
 ## Getting Started
 1. First we source our setenv file, which will tell Ansible where our host file lives (the file that contains the nodes we want to manage `./hosts`) as well as our ansible configuration file (`./etc/ansible.cfg`)
 ```
