@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Usage:
+#   source setenv
+# or
+#   . setenv
+#
+# This source file declares the environmental variables
+# necessary to run the local ansible playbooks and
+# scripts and it may not be executed directly..
+
+test $_ = $0 && {
+        echo ${0##*/} must be sourced, not executed.
+            exit 1
+}
+
+test ${PWD##*/} = 'dd_ansible' || {
+        echo ${BASH_SOURCE[*]##*/} must be sourced from an ansible dir.
+            return
+}
+
+test -f $PWD/etc/ansible.cfg || {
+        echo ${BASH_SOURCE[*]##*/} couldn\'t find $PWD/etc/ansible.cfg
+            return
+}
+
+export ANSIBLE_ROOT=$PWD
+export ANSIBLE_CONFIG=$ANSIBLE_ROOT/etc/ansible.cfg
+echo $ANSIBLE_ROOT

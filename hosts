@@ -1,0 +1,6 @@
+[all:vars]
+ansible_connection=ssh
+ansible_ssh_user=ubuntu
+
+[nodes]
+ec2-14-223-54-111.us-east-1.compute.amazonaws.com
