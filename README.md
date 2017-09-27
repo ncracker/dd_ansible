@@ -2,9 +2,13 @@
 
 ### Brief History of Everything
 
-The systems administrator’s role has been evolving rapidly in the last decade and with it the number of tools that we use has also grown exponentially.  Trying to stay on top of it has ushered the era of configuration management, the latest iteration of which is Ansible.
+The systems administrator’s role has been evolving rapidly in the last decade and with it the number of tools that we use has also grown exponentially.  Trying to stay on top of it has ushered the era of both monitoring and configuration management, the latest iterations of which are  Datadog and Ansible.
 
-Unlike previous solutions Ansible follows the push method and not pull. It requires no agents on the managed nodes and no “master” or management node. Its dependencies are SSH and python 2.7, which are available out-of-the-box on most modern Linux distributions. Its configuration files (playbooks) are in YAML and follow simple top to bottom flow. All this translates to ease of use and quick setup time and has made it a favorite for many SRE teams.
+Datadog is a SaaS monitoring platform for cloud-scale applications that brings together data from infrastructure, applications, databases and services to present a unified view of an entire stack. Datadog can collect data directly from your cloud provider of choice, but its full power lies in its agent and the many application integrations that surround it. Datadog provides an Ansible role that's available in the galaxy and this is  what we're using in this project.
+
+Unlike previous configuration management solutions Ansible follows the push method. It does not require an agent on the managed nodes and there's no concept of “master”. Its dependencies are SSH and python 2.7, which are available out-of-the-box on most modern Linux distributions. Its configuration files (playbooks) are in YAML and follow simple top to bottom flow. All this translates to ease of use and quick setup time and has made it a favorite for many SRE teams.
+
+We're now going to demonstrate how easy it is to deploy the Datadog agent with the help of Ansible. We're also going to see our progress as we do this via the Datadog events stream.
 
 ## Installation
 
@@ -45,9 +49,10 @@ cd playbooks
 ansible-playbook dd_agent.yml
 ```
 The output of the command will give you details of the individual tasks being performed. It will also generate two events in your Datadog events stream, one indicating the a playbook run was started and one for its completion. Any errors will also be displayed if they occur during the run of the playbook.
-<img src="https://cl.ly/1J0e3d3T2P2I" width="656" height="156" alt="Ansible events in Datadog"></a>
+<img src="https://cl.ly/1J0e3d3T2P2I" width="656" height="156" alt="Ansible events in Datadog">
 
 ## References
+Datadog - https://www.datadoghq.com/
 The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/Datadog`)
 Datadog's Ansible callback repo - https://github.com/DataDog/ansible-datadog-callback (included here in `./playbooks/callback_plugins`)
 Ansible's official documentation page - http://docs.ansible.com/ansible/latest/index.html
