@@ -57,7 +57,7 @@ The output of the command will give you details of the individual tasks being pe
 This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was successfully deployed.
 
 ## Final thoughts
-Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.12.3-1` for apt-based platforms, use a `5.12.3-1` format on yum-based platforms). See The Official Datadog Ansible role in the references below for more information.
+Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.17.2-1` for apt-based platforms, use a `5.17.2-1` format on yum-based platforms). See The Official Datadog Ansible role in the references below for more information.
 
 I hope you found the information and example useful. Please do not hesitate to reach out with comments or suggestions.
 Package dependencies can also be installed with `pip install -r requirements.txt`.
