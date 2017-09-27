@@ -1,3 +1,5 @@
+# Datadog + Ansible
+
 ### History of Everything
 
 The systems administrator’s role has been evolving rapidly in the last decade and with it the number of tools that we use has also grown exponentially.  Trying to stay on top of it has ushered the era of configuration management, the latest iteration of which is Ansible.
