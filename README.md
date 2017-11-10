@@ -26,19 +26,19 @@ The repository contains both a local copy of the Datadog role as well as the plu
 cd dd_ansible
 source setenv
 ```
-2. We also want to tell Ansible what the FQDNs or IPs of the nodes we want to manage are. In our example we use an Ubuntu 14 ec2 instance as a node. Add that with echo or your favorite editor, e.g.
+2. We also want to tell Ansible what the FQDNs or IPs of the nodes we want to manage are. In our example we use a single Ubuntu 14 instance as a node. We add the instance fqdn to the ./hosts file with echo
 ```
-echo "ec2-14-223-54-111.us-east-1.compute.amazonaws.com" >> ./hosts
+echo "yourinstance.fqdn.name" >> ./hosts
 ```
 3. Replace the example Datadog api key in `./playbooks/dd_agent.yml` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api. This will allow the plugin to post the results of your playbook runs into your Datadog events stream.
 
 4. You're now ready to execute your first Ansible command, but please make sure you can access the node you want to push to via ssh and you've loaded the ssh-key providing you that access (usually done with `ssh-add`). Once you're certain your access works go ahead and run 
 ```
-ansible -m ping -i hosts all
+ansible -m ping -i hosts mynodes
 ```
 You should see the following output, e.g.
 ```
-ec2-14-223-54-111.us-east-1.compute.amazonaws.com | SUCCESS => {
+yourinstance.fqdn.name | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
@@ -56,18 +56,36 @@ The output of the command will give you details of the individual tasks being pe
 
 This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was successfully deployed.
 
-The Datadog role provides more advanced functionality as well - such as electing to use your own private apt or yum repositories and loading configuration files for your datadog integrations. Please refer to its documentation if you want to take advantage of those features. 
+## How it happened
+Opening our example playbook (dd_agent.yml) in your prefered editor will show you how we achieved the agent push.
+```
+---
+- hosts: mynodes
+  remote_user: ubuntu
+  become: yes
+  roles:
+      - role: datadog
+  vars:
+    datadog_api_key: <Your API KEY>
+    datadog_agent_version: 1:5.17.2-1
+```
+`- hosts:` defines the group of hosts we're pushing to. This matches the group name "mynodes" we had predefined for you in the `./hosts` file. All you did was to echo the FQDN at the end of the hosts file. 
+`remote_user: ubuntu` indicates the username we've told ansible to use for this push. `become: yes` allows the playbook to elevate to sudo if necessary (required for package installs and service reboots). The following two lines tell our playbook to call the datadog role we have in our ./roles/ directory. That's then followed by two variables we pass to the datadog role, namely our api key we placed there earlier as well as the version of the agent we would like to push. Less than 10 lines of yaml playbook deployed the datadog agent for us. We could have pushed to many more systems if we had added those to our ansible hosts file.
+
+Something worth pointing out is that you can call multiple roles from a single playbook, thereby installing your database while also deploying the datadog agent. Also Datadog role provides more advanced functionality as well - such as loading configuration files for your datadog integrations (like for that database you just deployed). Please refer to the role's documentation in the link below if you want to take advantage of these features.
 
 ## Final thoughts
-Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.17.2-1` for apt-based platforms, use a `5.17.2-1` format on yum-based platforms). See The Official Datadog Ansible role in the references below for more information.
+Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.17.2-1` for apt-based platforms, use a `5.17.2-1` format on yum-based platforms). Again, please refer to The Official Datadog Ansible role in the references below for more information.
 
 I hope you found the information and example useful. Please do not hesitate to reach out with comments or suggestions.
 Package dependencies can also be installed with `pip install -r requirements.txt`.
+
+All the information provided here is purely for reference. Please test extensively before using in production environments.
 
 ## References
 For more information on both Datadog and Ansible please refer to the sources below
 Datadog - https://www.datadoghq.com/
 Monitor your automation, automate your monitoring - https://www.datadoghq.com/blog/ansible-datadog-monitor-your-automation-automate-your-monitoring/
-The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/Datadog`)
+The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/datadog`)
 Datadog's Ansible callback repo - https://github.com/DataDog/ansible-datadog-callback (included here in `./playbooks/callback_plugins`)
 Ansible's official documentation page - http://docs.ansible.com/ansible/latest/index.html
