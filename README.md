@@ -8,7 +8,7 @@ Datadog is a SaaS monitoring platform for cloud-scale applications that brings t
 
 Unlike many other configuration management solutions Ansible follows the push method. It does not require an agent on the managed nodes and there's no concept of “master”. Its dependencies are SSH and python 2.7, which are available out-of-the-box on most modern Linux distributions. Its configuration files (playbooks) are in YAML and follow simple top to bottom flow. All this translates to ease of use and quick setup time and has made it a favorite for many SRE teams. Ansible also provides the notion of "roles" which are intended to be used as shippable modules. Think Puppet modules or Chef cookbooks. Often times the work you need to get done, say installing a particular database and configuring its service, has already been done by someone in the open source community and shared out via the Ansible Galaxy (the ansible repository of roles - see https://galaxy.ansible.com/explore#/). This greatly reduces the amount of time you need to get started. The example above, installing a database, is then reduced to installing that particular role (or pulling its repository into your Ansible ./roles directory) and writing a simple playbook to call this role. 
 
-We're now going to demonstrate how easy it is to deploy the Datadog agent with the help of Ansible. We're also going to see our progress as we do this via the Datadog events stream.
+We're now going to demonstrate how easy it is to deploy the Datadog agent with the help of Ansible. We will also see our progress as we do this via the Datadog events stream.
 
 ## Installation
 
