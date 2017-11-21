@@ -74,6 +74,16 @@ Opening our example playbook (dd_agent.yml) in your prefered editor will show yo
 
 Something worth pointing out is that you can call multiple roles from a single playbook, thereby installing your database while also deploying the datadog agent. The Datadog ansible role provides more advanced functionality as well - such as loading configuration files for your datadog integrations (like for that database you just deployed). Please refer to the role's documentation in the link below if you want to take advantage of these features.
 
+## The Visuals
+A key benefit to monitoring with Datadog, among other things, is the fact that all of the provided integrations are paired with an out-of-the-box dashboard. This is also true for the Ansible callback integration. Assuming you've already run the above ansible commands you can find that dashboard under https://app.datadoghq.com/screen/integration/ansible
+
+You should see something like:
+<img src="https://datadog-docs.imgix.net/images/integrations/ansible/ansibledashboard-24481bf9.png?fit=max&w=850?fm=jpg&q=10" alt="Ansible Dashboard">
+
+The Dashboard gives you all the essential information related to your Ansible pushes. The average playbook execution time, percentage of changes resulting from those pushes as well as the individual push events over time. As with all other Datadog default dashboards you can clone it and modify it to further benefit your particular use case.
+
+
+
 ## Final thoughts
 Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.17.2-1` for apt-based platforms, use a `5.17.2-1` format on yum-based platforms). Again, please refer to The Official Datadog Ansible role in the references below for more information.
 
