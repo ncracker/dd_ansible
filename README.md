@@ -82,7 +82,12 @@ You should see something like:
 
 The Dashboard gives you all the essential information related to your Ansible pushes. The average playbook execution time, percentage of changes resulting from those pushes as well as the individual push events over time. As with all other Datadog default dashboards you can clone it and modify it to further benefit your particular use case.
 
+Another popular usecase is to overlay events triggered by configuration management or CI/CD tools over your time series widgets in dashboards. This is frequently done when troubleshooting and investigating application or infrastructure issues. This enables you to look for correlation between deploys and pushes, and your metrics. We do this by using the "Search events to overlay..." search box in timeboards or the "Add Events" button when edition individual widgets. 
 
+This is an example of Ansible event correlation with the use of the overlay search function:
+<img src="https://farm5.staticflickr.com/4529/38496276486_7c2af1a658_c.jpg" width="800" height="441" alt="correlation">
+
+You'll notice the vertical red bands appearing over all time series widgets, each of them represeting an individual Ansible push event as defined in the search box. The Ansible events stream also appears to the left. As you hoover over the red bands in the timeseries widgets the events stream will scroll to and highlight the corresponding event message. This functionality is invaluable and greatly reduces time to resolution when investigating during an incident.
 
 ## Final thoughts
 Our example node was running Ubuntu, but you can easily deploy to other distributions. The only changes you would need to make are in `./etc/ansible.cfg` and in `./playbooks/dd_agent.yml` where we've specified the user Ansible is to use and well as the package version (`1:5.17.2-1` for apt-based platforms, use a `5.17.2-1` format on yum-based platforms). Again, please refer to The Official Datadog Ansible role in the references below for more information.
