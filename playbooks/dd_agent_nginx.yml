@@ -7,3 +7,10 @@
   vars:
     datadog_api_key: <Your API KEY>
     datadog_agent_version: 1:5.17.2-1
+    datadog_checks:
+      nginx:
+        init_config:
+        instances:
+          - nginx_status_url: http://example.com/nginx_status/
+            tags:
+              - instance:foo
