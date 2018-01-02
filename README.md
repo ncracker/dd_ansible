@@ -30,7 +30,7 @@ source setenv
 ```
 echo "yourinstance.fqdn.name" >> ./hosts
 ```
-3. Replace the example Datadog api key in the playbook `./playbooks/dd_agent.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api. Do the same for `./playbooks/callback_plugins/datadog_callback.yml`, which will allow the plugin to post the results of your playbook runs into your Datadog events stream - here you have 3 ways to set your API key, but I've opted in for the YAML (see the callback plug in documentation for details). 
+3. Replace the example Datadog api key in the playbook `./playbooks/dd_agent.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api. Do the same for `./playbooks/callback_plugins/datadog_callback.yml`, which will allow the plugin to post the results of your playbook runs into your Datadog events stream - here you have 3 ways to set your API key, but I've opted in for the YAML (see the callback plug-in documentation for details listed in the references below). 
 
 4. You're now ready to execute your first Ansible command, but please make sure you can access the node you want to push to via ssh and you've loaded the ssh-key providing you that access (usually done with `ssh-add`). Once you're certain your access works go ahead and run 
 ```
