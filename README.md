@@ -18,7 +18,7 @@ Our intended use case is deploying Datadog agents with Ansible as well as postin
 
 Once you have done that you can clone this example repo with `git clone git@github.com:ncracker/dd_ansible.git`.
 
-The repository contains both a local copy of the Datadog role as well as the plugin that will post events to Datadog, located in `./roles/datadog` and `./playbooks/callback_plugins/` respectively. 
+The repository contains both a local copy of the Datadog role as well as the plugin that will post events to Datadog, located in `./roles/Datadog.datadog` and `./playbooks/callback_plugins/` respectively. 
 
 ## Getting Started
 1. First we source our setenv file, which will tell Ansible where our host file lives (the file that contains the nodes we want to manage `./hosts`), where to look for installed roles as well as our ansible configuration file (`./etc/ansible.cfg`)
@@ -30,7 +30,7 @@ source setenv
 ```
 echo "yourinstance.fqdn.name" >> ./hosts
 ```
-3. Replace the example Datadog api key in `./playbooks/dd_agent.yml` and `./playbooks/callback_plugins/datadog_callback.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api. This will allow the plugin to post the results of your playbook runs into your Datadog events stream.
+3. Replace the example Datadog api key in the playbook `./playbooks/dd_agent.yml` with a valid key from your Datadog account - you can find it in https://app.datadoghq.com/account/settings#api. Do the same for `./playbooks/callback_plugins/datadog_callback.yml`, which will allow the plugin to post the results of your playbook runs into your Datadog events stream - here you have 3 ways to set your API key, but I've opted in for the YAML (see the callback plug in documentation for details). 
 
 4. You're now ready to execute your first Ansible command, but please make sure you can access the node you want to push to via ssh and you've loaded the ssh-key providing you that access (usually done with `ssh-add`). Once you're certain your access works go ahead and run 
 ```
@@ -56,6 +56,12 @@ The output of the command will give you details of the individual tasks being pe
 
 This indicates Ansible began the execution of the playbook and completed it. Our datadog agent was successfully deployed.
 
+6. (Optional) To deploy the agent and enable the NGINX datadog integration, which will enable the agent to collect metrics from the NGINX status page, as soon as it's installed, edit `./playbooks/dd_agent_nginx.yml` to match your /nginx_status configuration and run
+```
+ansible-playbook dd_agent_nginx.yml
+```
+This assumes you have installed and running NGINX on the target system with running /nginx_status location. See the "How to collect NGINX metrics" in the references below for details.
+
 ## How it happened
 Opening our example playbook (dd_agent.yml) in your prefered editor will show you how we achieved the agent push.
 ```
@@ -64,7 +70,7 @@ Opening our example playbook (dd_agent.yml) in your prefered editor will show yo
   remote_user: ubuntu
   become: yes
   roles:
-      - role: datadog
+      - role: Datadog.datadog
   vars:
     datadog_api_key: <Your API KEY>
     datadog_agent_version: 1:5.17.2-1
@@ -104,3 +110,4 @@ Monitor your automation, automate your monitoring - https://www.datadoghq.com/bl
 The official Datadog Ansible role - https://github.com/DataDog/ansible-datadog (included here in `./roles/datadog`)
 Datadog's Ansible callback repo - https://github.com/DataDog/ansible-datadog-callback (included here in `./playbooks/callback_plugins`)
 Ansible's official documentation page - http://docs.ansible.com/ansible/latest/index.html
+How to collect NGINX metrics - https://www.datadoghq.com/blog/how-to-collect-nginx-metrics/
