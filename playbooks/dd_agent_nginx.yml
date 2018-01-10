@@ -6,7 +6,7 @@
     - role: Datadog.datadog
   vars:
     datadog_api_key: <Your API KEY>
-    datadog_agent_version: 1:5.17.2-1
+    datadog_agent_version: 1:5.20.2-1
     datadog_checks:
       nginx:
         init_config:
